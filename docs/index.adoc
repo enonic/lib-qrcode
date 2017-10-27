@@ -1,0 +1,225 @@
+= How to create a Library
+
+In this guide we will show how to create a new library for Enonic XP.
+
+As an example we will implement a library for generating QR Code images that can be used from JavaScript controllers in XP apps.
+
+The functionality for generating the actual *QR Code* images will use an existing Java library: https://github.com/kenglxn/QRGen[QRGen]
+
+image::images/qrcode.png[]
+
+
+== Create library project
+To set up the project we can start with a https://market.enonic.com/starters[starter] as a base. Then adapt it for our needs.
+
+Follow these steps:
+
+- select a starter from the market, for example https://market.enonic.com/vendors/enonic/vanilla-starter[Vanilla Starter]
+- pick an application name for the library: `com.enonic.lib.qrcode`
+- use the http://xp.readthedocs.io/en/stable/reference/toolbox/init-project.html[toolbox to create the project] using the starter.
+- the starter page in https://market.enonic.com/vendors/enonic/vanilla-starter[Enonic market] provides a command to get download using the starter:
+* `./toolbox.sh init-project -n com.enonic.lib.qrcode -d ./lib-qrcode -r starter-vanilla -c v1.2.0`
+- open the project in your favorite IDE or file browser
+- delete the directories and files that don't apply for a library: `views`, `services`, `assets`, `admin`, `sitev, `application.xml`, `application.svg`
+- check that the project builds by running `./gradlew build`
+- the generated library will be placed in `build/libs/<name>.jar`
+
+== Create code skeleton files
+Next we will create the files for the JavaScript and Java code in the library.
+
+- add a JavaScript library file: `src/main/resources/lib/qrcode.js`
+- write the JavaScript function that the library will export, don't worry about parameters or return value for now:
+[source,js]
+----
+exports.generateQrCode = function () {
+
+    return 'Hello world';
+};
+----
+
+- create a Java class to implement the library functionality: `src/main/java/com/enonic/lib/qrcode/QRCodeHandler.java`
+[source,java]
+----
+package com.enonic.lib.qrcode;
+
+public class QRCodeHandler
+{
+    public String execute() {
+        return
+    }
+}
+----
+
+- from the _.js_ file, we will instantiate a Java handler from JavaScript. For that we need to call the built-in function `__.newBean`, passing the Java class full name.
+- we will obtain an instance of the Java object. We can then call any public method in the class, from JavaScript:
+[source,js]
+----
+exports.generateQrCode = function () {
+    var bean = __.newBean('com.enonic.lib.qrcode.QRCodeHandler');
+
+    return bean.generateQrCode();
+};
+----
+
+
+== Add external Java dependencies
+To use external Java libraries we need to make changes to the build.gradle file.
+
+Java dependencies are fetched by specifying an artifact-id.
+For this we will add a compile dependency to the gradle file.
+
+[source,groovy]
+----
+dependencies {
+    compile "com.enonic.xp:script-api:${xpVersion}"
+    compile 'com.github.kenglxn.QRGen:javase:2.3.0' <1>
+}
+----
+<1> Added QRGen dependency.
+
+
+Sometimes the dependency is located in a Maven repository that is not already included in the build.
+In those cases we also need to add the repository to build.
+
+[source,groovy]
+----
+repositories {
+    jcenter()
+    xp.enonicRepo()
+    maven { url "https://jitpack.io" } <2>
+}
+----
+<2> Added repository to fetch QRGen Java library.
+
+Now we can use the QRGen classes in the project Java code.
+
+== Implementation
+
+In our example library we will export one function that will take 2 parameters:
+
+- the URL or text
+- the size of the image in pixels.
+
+It will return a PNG image representing the QR Code for the text or URL specified, with the image width and height being the size specified.
+
+=== Passing parameters
+
+When calling a Java method from JavaScript there are 2 ways to pass parameters:
+
+. By passing the parameters in the method call to the Java object
+. By setting the values in the Java object, using setters, and then call a method without parameters
+
+Using method parameters works well when there are few parameters to pass (i.e. less than 3).
+[source,js]
+----
+exports.generateQrCode = function (params) {
+    var bean = __.newBean('com.enonic.lib.qrcode.QRCodeHandler');
+    return bean.generateQrCode( __.nullOrValue(params.text), __.nullOrValue(params.size) );
+};
+----
+[source,java]
+----
+public class QRCodeHandler {
+    private Integer size;
+    private String text;
+
+    public ByteSource generateQrCode(String text, Integer size) {
+        ByteArrayOutputStream stream = QRCode.from( text ).
+            withSize( size, size ).
+            to( ImageType.PNG ).
+            stream();
+        return ByteSource.wrap( stream.toByteArray() );
+    }
+}
+----
+
+When there are multiple parameters it is more readable and maintainable to set the values using setters. This is specially true when some parameters are optional.
+[source,js]
+----
+exports.generateQrCode = function (params) {
+    var bean = __.newBean('com.enonic.lib.qrcode.QRCodeHandler');
+    bean.text = __.nullOrValue(params.text);
+    bean.size = __.nullOrValue(params.size) || 250;
+
+    return bean.generateQrCode();
+};
+----
+For this we just need to define standard Java bean setter methods in the class, and set the values as JS properties in the object.
+[source,java]
+----
+public class QRCodeHandler {
+    private Integer size;
+    private String text;
+
+    public ByteSource generateQrCode() {
+        ByteArrayOutputStream stream = QRCode.from( text ).
+            withSize( size, size ).
+            to( ImageType.PNG ).
+            stream();
+        return ByteSource.wrap( stream.toByteArray() );
+    }
+
+    public void setSize( Integer size ) {
+        this.size = size;
+    }
+    public void setText( String text ) {
+        this.text = text;
+    }
+}
+----
+
+
+TIP: Note, when passing values that might be `null` or `undefined` it is recommended to filter them using the `__.nullOrValue` built-in function.
+This function converts any value that is `null` or `undefined` in JavaScript to `null` in Java. Otherwise returns the input value without changes.
+
+
+=== Parameter conversions
+
+There are some type conversions that are made when calling from JavaScript to Java:
+
+- when passing a JavaScript `string`, the Java method should expect a Java `String`
+- when passing a JavaScript `boolean`, the Java method should expect a Java `Boolean`
+- when passing a JavaScript `number`, the Java method should expect a Java `Long`, `Integer` or `Double`
+- when passing a JavaScript `array`, the Java method should expect a Java `List`
+- when passing a JavaScript `object`, the Java method should expect a Java `Map<String, Object>`
+
+For returning values of type binary stream from Java, it should be wrapped on a https://google.github.io/guava/releases/19.0/api/docs/com/google/common/io/ByteSource.html[ByteSource] object.
+This is required by XP to allow returning it from an HTTP request, or add it as a content attachment.
+
+=== Validations
+
+// TODO
+
+== Using the library
+
+To use the newly created library from in an XP application, first we need to add the dependency and repository from the library:
+
+[source,groovy]
+----
+dependencies {
+    ...
+    include "com.enonic.lib:qrcode:1.0.0-SNAPSHOT"
+}
+
+repositories {
+    ...
+    maven { url "https://jitpack.io" }
+}
+----
+
+And then the library can be used from any JavaScript controller by just requiring the lib and calling the exported functions:
+
+[source,js]
+----
+var qrcode = require('/lib/qrcode');
+
+exports.get = function (req) {
+    return {
+        body: qrcode.generateQrCode('https://enonic.com', 250),
+        contentType: 'image/png'
+    }
+};
+----
+
+
+TIP: To test the library while it is being developed, add the install task to the gradle command, so that the local maven repository is updated and can be used by a local application: `./gradlew build install`
