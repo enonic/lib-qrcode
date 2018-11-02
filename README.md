@@ -7,7 +7,6 @@ QR Code Library for Enonic XP
 
 This library allows generating QR Code images.
 
-See documentation here: https://developer.enonic.com/docs/qrcode-library/master
 [See documentation here](./docs/index.adoc)
 
 ## Building
