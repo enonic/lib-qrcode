@@ -26,3 +26,4 @@ To release this project, execute the following:
 ```
 ./gradlew clean build uploadArchives
 ```
+
