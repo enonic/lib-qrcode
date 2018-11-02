@@ -1,4 +1,4 @@
-= HTTP Client Library
+= QR Code Library
 
 Library for generating QR Code images that can be used from JavaScript controllers in XP apps.
 
