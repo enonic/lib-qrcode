@@ -1,10 +1,10 @@
 QR Code Library for Enonic XP
 =================================
 
+<img align="right" style="margin-top:10px;" alt="QR Code Library" src="https://raw.githubusercontent.com/enonic/lib-qrcode/master/docs/images/qrcode.png">
+
 [![Build Status](https://travis-ci.org/enonic/lib-qrcode.svg?branch=master)](https://travis-ci.org/enonic/lib-qrcode)
 [![License](https://img.shields.io/github/license/enonic/lib-qrcode.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-
-<img align="right" style="margin-top:10px;" alt="QR Code Library" src="https://raw.githubusercontent.com/enonic/lib-qrcode/master/docs/images/qrcode.png">
 
 This library allows generating QR Code images.
 
