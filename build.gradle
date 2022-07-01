@@ -7,7 +7,7 @@ plugins {
 
 repositories {
     mavenLocal()
-    jcenter()
+    mavenCentral()
     xp.enonicRepo()
     maven { url "https://jitpack.io" }
 }
