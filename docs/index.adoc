@@ -33,14 +33,14 @@ To generate an image with a QR Code just call the `generateQrCode` function with
 var qrcode = require('/lib/qrcode');
 
 exports.get = function (req) {
-    var image = qrcode.generateQrCode({ <1>
-        text: 'https://enonic.com',     <2>
-        size: 250                       <3>
+    var image = qrcode.generateQrCode({ // <1>
+        text: 'https://enonic.com',     // <2>
+        size: 250                       // <3>
     });
 
     return {
-        body: image,                    <4>
-        contentType: 'image/png'        <5>
+        body: image,                    // <4>
+        contentType: 'image/png'        // <5>
     }
 };
 ----
