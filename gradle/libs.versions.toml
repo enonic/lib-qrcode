@@ -1,0 +1,5 @@
+[versions]
+qrgen = "3.0.1"
+
+[libraries]
+qrgen-javase = { module = "com.github.kenglxn.QRGen:javase", version.ref = "qrgen" }

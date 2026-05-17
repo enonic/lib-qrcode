@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     compileOnly xplibs.api.script
-    implementation 'com.github.kenglxn.QRGen:javase:3.0.1'
+    implementation libs.qrgen.javase
 }
 
 artifacts {
