@@ -2,8 +2,7 @@
   "versions": [
     {
       "label": "2.x",
-      "checkout": "2.x",
-      "latest": true
+      "checkout": "2.x"
     },
     {
       "label": "stable",
