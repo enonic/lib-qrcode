@@ -468,11 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
-    include "com.enonic.lib:lib-qrcode:2.0.0"
-}
-
-repositories {
-    maven { url "https://jitpack.io" }
+    include "com.enonic.lib:lib-qrcode:3.0.0"
 }</code></pre>
 </div>
 </div>
@@ -583,14 +579,14 @@ The value returned is a stream object. It can be set as the response of an HTTP 
 <h2 id="compatibility"><a class="link" href="#compatibility">Compatibility</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This library requires Enonic XP release 6.11.0 or higher.</p>
+<p>This library requires Enonic XP release 8.0.0 or higher.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-30 14:44:59 UTC
+Last updated 2026-06-30 14:46:26 UTC
 </div>
 </div>
 </body>
