@@ -1,0 +1,32 @@
+{
+  "name": "@enonic-types/lib-qrcode",
+  "version": "0.0.0",
+  "description": "Type definitions for the Enonic XP QR Code library",
+  "types": "index.d.ts",
+  "files": [
+    "*"
+  ],
+  "keywords": [
+    "enonic",
+    "enonic-xp",
+    "lib-qrcode",
+    "qrcode",
+    "types",
+    "typescript"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/enonic/lib-qrcode#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enonic/lib-qrcode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/enonic/lib-qrcode/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@enonic-types/core": "^8.0.0"
+  }
+}
