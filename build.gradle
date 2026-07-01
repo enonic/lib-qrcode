@@ -9,12 +9,11 @@ repositories {
     mavenLocal()
     mavenCentral()
     xp.enonicRepo()
-    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     compileOnly xplibs.api.script
-    implementation libs.qrgen.javase
+    implementation libs.zxing.core
 }
 
 artifacts {
