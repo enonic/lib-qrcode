@@ -1,4 +1,7 @@
 = QR Code Library
+:toc: right
+
+NOTE: Versions 3.x target XP 8+.
 
 Library for generating QR Code images that can be used from JavaScript controllers in XP apps.
 
@@ -67,7 +70,3 @@ The request function takes a parameter object with options. The `text` option is
 *Returns*
 
 The function will return a `stream` binary object containing a PNG image.
-
-== Compatibility
-
-This library requires Enonic XP release 8.0.0 or higher.

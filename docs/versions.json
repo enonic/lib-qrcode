@@ -1,6 +1,6 @@
 {
   "versions": [
-    { "label": "2.x", "checkout": "2.x" },
-    { "label": "stable", "checkout": "3.x", "latest": true }
+    { "label": "stable", "checkout": "3.x", "latest": true },
+    { "label": "2.x",    "checkout": "2.x" }
   ]
 }
