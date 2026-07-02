@@ -447,13 +447,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#generateqrcodeoptions"><code>generateQrCode(options)</code></a></li>
 </ul>
 </li>
-<li><a href="#compatibility">Compatibility</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Versions 3.x target XP 8+.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Library for generating QR Code images that can be used from JavaScript controllers in XP apps.</p>
 </div>
@@ -575,18 +586,10 @@ The value returned is a stream object. It can be set as the response of an HTTP 
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="compatibility"><a class="link" href="#compatibility">Compatibility</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This library requires Enonic XP release 8.0.0 or higher.</p>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-02 07:38:21 UTC
+Last updated 2026-07-02 07:38:40 UTC
 </div>
 </div>
 </body>
