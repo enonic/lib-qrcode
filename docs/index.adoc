@@ -1,5 +1,7 @@
 = QR Code Library
 
+NOTE: Versions 2.x target XP 7+.
+
 Library for generating QR Code images that can be used from JavaScript controllers in XP apps.
 
 image::images/qrcode.png[]
