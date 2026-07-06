@@ -1,5 +1,5 @@
 [versions]
-zxing = "3.5.1"
+zxing = "3.5.4"
 
 [libraries]
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
