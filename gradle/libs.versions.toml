@@ -1,5 +1,7 @@
 [versions]
+junit = "6.1.2"
 zxing = "3.5.4"
 
 [libraries]
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }

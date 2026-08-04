@@ -8,12 +8,24 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    xp.enonicRepo()
+    xp.enonicRepo('dev')
 }
 
 dependencies {
     compileOnly xplibs.api.script
     implementation libs.zxing.core
+
+    testImplementation libs.junit.jupiter
+    testImplementation "com.enonic.xp:testing:${xpVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+xp {
+    scriptEngines = ['Nashorn', 'GraalJS']
 }
 
 artifacts {
